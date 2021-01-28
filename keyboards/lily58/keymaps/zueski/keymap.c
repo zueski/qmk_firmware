@@ -28,8 +28,8 @@ extern uint8_t is_master;
 
 enum layer_number {
   _QWERTY = 0,
-  _LOWER,
-  _RAISE
+  _LOWER = 1,
+  _RAISE = 2
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_C,
       KC_V,
       KC_B,
-      KC_LBRC,
+      KC_BSPC,
       KC_RBRC,
       KC_N,
       KC_M,
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_SPC,
       KC_ENT,
       MO(2),
-      KC_BSPC,
+      KC_DEL,
       KC_RALT
 ),
 
@@ -118,8 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_RPRN,
       KC_LCBR,
       KC_RCBR,
-      KC_TRNS,
-      KC_TRNS,
+      KC_LBRC,
+      KC_RBRC,
       KC_TRNS,
       KC_EXLM,
       KC_AT,
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_BSLS,
       KC_PIPE,
       KC_UNDS,
-      KC_LCBR,
+      KC_EQL,
       KC_PLUS,
       KC_TRNS,
       KC_TRNS,
@@ -290,10 +290,13 @@ static void render_status(void) {
 
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_P(PSTR("     0"), false);
+            oled_write_P(PSTR("  base"), false);
             break;
         case 1:
-            oled_write_P(PSTR("     1"), false);
+            oled_write_P(PSTR("sp. ch"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR(" extra"), false);
             break;
         default:
             oled_write_P(PSTR("     ?"), false);
